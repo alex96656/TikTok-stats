@@ -1,0 +1,17 @@
+const apiKey = process.env.API_KEY; // use the key from .env
+
+app.post("/boost", async (req, res) => {
+  const { action, username } = req.body; // apiKey is now from .env
+
+  try {
+    const response = await axios.post("THIRD_PARTY_API_URL", {
+      apiKey,    // automatically uses your .env key
+      action,
+      username
+    });
+
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ error: "API request failed" });
+  }
+});
